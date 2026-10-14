@@ -2,6 +2,8 @@
 
 A custom theme for [bb](https://getbb.app) bringing visual and layout parity with the OpenAI Codex / ChatGPT desktop app.
 
+![Codex Theme Preview](preview.png)
+
 ## Features
 
 - **Codex / ChatGPT Typography**: Uses the macOS system font (`SF Pro`) matching the desktop app, with tuned `430` text weight and 14px scale.
