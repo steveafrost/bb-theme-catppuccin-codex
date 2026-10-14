@@ -348,6 +348,26 @@ span.inline-flex.min-w-0.max-w-full.items-center.opacity-40 { opacity: 1; }
    --------------------------------------------------------------------------- */
 [data-sonner-toaster] {
   --border-radius: 16px !important;
+  --offset-bottom: 24px !important;
+  --offset-right: 24px !important;
+  --offset-left: 24px !important;
+  --offset-top: 24px !important;
+}
+
+[data-sonner-toaster][data-y-position="bottom"] {
+  bottom: 24px !important;
+}
+
+[data-sonner-toaster][data-x-position="right"] {
+  right: 24px !important;
+}
+
+[data-sonner-toaster][data-x-position="left"] {
+  left: 24px !important;
+}
+
+[data-sonner-toaster][data-y-position="top"] {
+  top: 24px !important;
 }
 
 .dark [data-sonner-toaster] {
@@ -358,46 +378,57 @@ span.inline-flex.min-w-0.max-w-full.items-center.opacity-40 { opacity: 1; }
 
 :root:not(.dark) [data-sonner-toaster] {
   --normal-bg: #ffffff !important;
+  --normal-border: #e6e9ef !important;
   --normal-text: var(--ink) !important;
 }
 
+/* Outer Sonner toast element: transparent and borderless so inner card is sole border */
 :is([data-sonner-toast], [data-sonner-toast][data-styled="true"]) {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+/* The actual toast card (both BB custom .bb-app-toast div and fallback styled toasts) */
+:is([data-sonner-toast] > div, [data-sonner-toast][data-styled="true"]) {
   border-radius: 16px !important;
   background-color: var(--popover) !important;
   border: 1px solid var(--popover-border) !important;
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.45), 0 8px 10px -6px rgba(0, 0, 0, 0.35) !important;
   color: var(--ink) !important;
-  padding: 14px 16px !important;
 }
 
-:root:not(.dark) :is([data-sonner-toast], [data-sonner-toast][data-styled="true"]) {
+:root:not(.dark) :is([data-sonner-toast] > div, [data-sonner-toast][data-styled="true"]) {
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.08) !important;
 }
 
 /* Toast title and description typography */
-[data-sonner-toast] [data-title] {
+[data-sonner-toast] :is([data-title], [data-testid="app-toast-title"]) {
   font-size: 0.875rem !important; /* 14px */
   font-weight: 500 !important;
   line-height: 1.4 !important;
   color: var(--ink) !important;
 }
 
-[data-sonner-toast] [data-description] {
+[data-sonner-toast] :is([data-description], [data-testid="app-toast-description"]) {
   font-size: 0.8125rem !important; /* 13px */
   line-height: 1.4 !important;
   color: var(--muted-foreground) !important;
 }
 
-[data-sonner-toast] [data-description] button {
+[data-sonner-toast] [data-description] button,
+[data-sonner-toast] [data-testid="app-toast-description"] button {
   color: var(--muted-foreground) !important;
 }
 
-[data-sonner-toast] [data-description] button:hover {
+[data-sonner-toast] [data-description] button:hover,
+[data-sonner-toast] [data-testid="app-toast-description"] button:hover {
   color: var(--ink) !important;
 }
 
 /* Close button on notifications */
-[data-sonner-toast] [data-close-button] {
+[data-sonner-toast] :is([data-close-button], button:has(svg.size-3\.5)) {
   border-radius: 9999px !important;
   background-color: transparent !important;
   border: 1px solid transparent !important;
@@ -405,22 +436,23 @@ span.inline-flex.min-w-0.max-w-full.items-center.opacity-40 { opacity: 1; }
   transition: background-color 0.15s ease, color 0.15s ease !important;
 }
 
-[data-sonner-toast] [data-close-button]:hover {
+[data-sonner-toast] :is([data-close-button], button:has(svg.size-3\.5)):hover {
   background-color: color-mix(in srgb, var(--ink) 12%, transparent) !important;
   color: var(--ink) !important;
   border-color: transparent !important;
 }
 
 /* Action and cancel buttons inside notifications (e.g. Undo) */
-[data-sonner-toast] [data-button] {
+[data-sonner-toast] [data-button],
+[data-sonner-toast] button.underline {
   border-radius: 9999px !important;
   font-size: 0.8125rem !important; /* 13px */
   font-weight: 500 !important;
   transition: opacity 0.15s ease, background-color 0.15s ease !important;
 }
 
-/* Undo / cancel button */
-[data-sonner-toast] [data-cancel] {
+/* Undo / cancel / link button */
+[data-sonner-toast] :is([data-cancel], button.underline) {
   background-color: transparent !important;
   color: var(--ink) !important;
   text-decoration: underline !important;
@@ -428,7 +460,7 @@ span.inline-flex.min-w-0.max-w-full.items-center.opacity-40 { opacity: 1; }
   padding: 2px 6px !important;
 }
 
-[data-sonner-toast] [data-cancel]:hover {
+[data-sonner-toast] :is([data-cancel], button.underline):hover {
   background-color: color-mix(in srgb, var(--ink) 10%, transparent) !important;
 }
 
@@ -445,22 +477,29 @@ span.inline-flex.min-w-0.max-w-full.items-center.opacity-40 { opacity: 1; }
 
 /* Semantic icons in toasts */
 [data-sonner-toast][data-type="success"] [data-icon],
-[data-sonner-toast][data-type="success"] [data-icon] svg {
+[data-sonner-toast][data-type="success"] [data-icon] svg,
+[data-sonner-toast] div:has(> svg[data-icon="CheckCircle2"]),
+[data-sonner-toast] svg[data-icon="CheckCircle2"] {
   color: var(--success) !important;
 }
 
 [data-sonner-toast][data-type="error"] [data-icon],
-[data-sonner-toast][data-type="error"] [data-icon] svg {
+[data-sonner-toast][data-type="error"] [data-icon] svg,
+[data-sonner-toast] div:has(> svg[data-icon="XCircle"]),
+[data-sonner-toast] svg[data-icon="XCircle"] {
   color: var(--destructive) !important;
 }
 
 [data-sonner-toast][data-type="warning"] [data-icon],
-[data-sonner-toast][data-type="warning"] [data-icon] svg {
+[data-sonner-toast][data-type="warning"] [data-icon] svg,
+[data-sonner-toast] div:has(> svg[data-icon="AlertTriangle"]),
+[data-sonner-toast] svg[data-icon="AlertTriangle"] {
   color: var(--warning) !important;
 }
 
 [data-sonner-toast][data-type="info"] [data-icon],
-[data-sonner-toast][data-type="info"] [data-icon] svg {
+[data-sonner-toast][data-type="info"] [data-icon] svg,
+[data-sonner-toast] div:has(> svg[data-icon="Info"]),
+[data-sonner-toast] svg[data-icon="Info"] {
   color: var(--timeline-accent) !important;
 }
-
