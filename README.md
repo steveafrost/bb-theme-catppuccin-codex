@@ -1,6 +1,6 @@
-# Catppuccin Codex Theme for bb
+# Codex Theme for bb
 
-A custom theme for [bb](https://getbb.app) bringing UI and layout parity with the OpenAI Codex / ChatGPT desktop app, built on top of the Catppuccin palette (Mocha dark, Latte light).
+A custom theme for [bb](https://getbb.app) bringing visual and layout parity with the OpenAI Codex / ChatGPT desktop app.
 
 ## Features
 
@@ -21,8 +21,8 @@ A custom theme for [bb](https://getbb.app) bringing UI and layout parity with th
 Clone into your custom themes directory and activate it:
 
 ```bash
-git clone https://github.com/steveafrost/bb-theme-catppuccin-codex.git ~/.bb/theme/catppuccin-codex-font
-bb theme set catppuccin-codex-font
+git clone https://github.com/steveafrost/bb-theme-codex.git ~/.bb/theme/codex
+bb theme set codex
 ```
 
 The theme takes effect immediately in running windows without a restart.
@@ -30,8 +30,8 @@ The theme takes effect immediately in running windows without a restart.
 ## Updating
 
 ```bash
-git -C ~/.bb/theme/catppuccin-codex-font pull
-bb theme set catppuccin-codex-font
+git -C ~/.bb/theme/codex pull
+bb theme set codex
 ```
 
 ## Reset / Uninstall
@@ -39,7 +39,5 @@ bb theme set catppuccin-codex-font
 To return to the default theme:
 
 ```bash
-bb theme set catppuccin
-# or
 bb theme reset
 ```
