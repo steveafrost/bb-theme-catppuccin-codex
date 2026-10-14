@@ -3,6 +3,9 @@
   /* Anchors: Base / Text */
   --canvas: #eff1f5;
   --ink: #4c4f69;
+  --popover: #ffffff;
+  --popover-foreground: #4c4f69;
+  --popover-border: #e6e9ef;
 
   /* Accent: Mauve */
   --primary: #8839ef;
@@ -49,6 +52,9 @@
   /* Anchors: Base / Text */
   --canvas: #1e1e2e;
   --ink: #cdd6f4;
+  --popover: #3b3c4f;
+  --popover-foreground: #cdd6f4;
+  --popover-border: #404153;
 
   /* Accent: Mauve */
   --primary: #cba6f7;
@@ -258,5 +264,203 @@ span.inline-flex.min-w-0.max-w-full.items-center.opacity-40 { opacity: 1; }
   min-width: 2rem !important;
   padding: 0 !important;
   aspect-ratio: 1 / 1 !important;
+}
+
+/* ---------------------------------------------------------------------------
+   Codex Context Menus & Dropdown Menus:
+   - 16px rounded corners (matching Codex --menu-radius: var(--radius-2xl))
+   - #3b3c4f elevated background and #404153 border sampled from Codex dark mode
+   - 10px rounded menu items (concentric geometry with 6px container padding)
+   - Refined hover states, subtle dividers, and destructive item styling
+   --------------------------------------------------------------------------- */
+:is([data-radix-menu-content], [data-radix-dropdown-menu-content], [data-radix-context-menu-content], [role="menu"]) {
+  border-radius: 16px !important;
+  padding: 6px !important;
+  background-color: var(--popover) !important;
+  border: 1px solid var(--popover-border) !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.45), 0 8px 10px -6px rgba(0, 0, 0, 0.35) !important;
+  color: var(--popover-foreground) !important;
+}
+
+:root:not(.dark) :is([data-radix-menu-content], [data-radix-dropdown-menu-content], [data-radix-context-menu-content], [role="menu"]) {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Rounded menu items with concentric geometry */
+:is([data-radix-menu-content], [data-radix-dropdown-menu-content], [data-radix-context-menu-content], [role="menu"])
+  :is([role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"]) {
+  border-radius: 10px !important;
+  padding: 6px 10px !important;
+  margin: 1px 0 !important;
+  font-size: 0.8125rem !important; /* 13px in Codex scale */
+  color: var(--ink) !important;
+  transition: background-color 0.1s ease, color 0.1s ease !important;
+}
+
+/* Hover and highlighted states for menu items */
+:is([data-radix-menu-content], [data-radix-dropdown-menu-content], [data-radix-context-menu-content], [role="menu"])
+  :is([role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"]):is(:hover, :focus, [data-highlighted], [data-state="open"]) {
+  background-color: color-mix(in srgb, var(--ink) 10%, transparent) !important;
+  color: var(--ink) !important;
+}
+
+/* Destructive items (e.g. Delete) stay red and get a soft red background on hover */
+:is([data-radix-menu-content], [data-radix-dropdown-menu-content], [data-radix-context-menu-content], [role="menu"])
+  :is([role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"]):is(.text-destructive, [data-destructive]) {
+  color: var(--destructive) !important;
+}
+
+:is([data-radix-menu-content], [data-radix-dropdown-menu-content], [data-radix-context-menu-content], [role="menu"])
+  :is([role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"]):is(.text-destructive, [data-destructive]):is(:hover, :focus, [data-highlighted]) {
+  color: var(--destructive) !important;
+  background-color: color-mix(in srgb, var(--destructive) 14%, transparent) !important;
+}
+
+/* Menu separators */
+:is([data-radix-menu-content], [data-radix-dropdown-menu-content], [data-radix-context-menu-content], [role="menu"])
+  :is([role="separator"], hr, .-mx-1.my-1.h-px) {
+  background-color: var(--popover-border) !important;
+  margin: 4px 2px !important;
+  height: 1px !important;
+  border: none !important;
+  opacity: 0.8 !important;
+}
+
+/* Menu icons */
+:is([data-radix-menu-content], [data-radix-dropdown-menu-content], [data-radix-context-menu-content], [role="menu"])
+  :is([role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"]) :is([data-icon-root], svg) {
+  color: inherit !important;
+  opacity: 0.9 !important;
+}
+
+/* Secondary / detail text in menu rows (e.g. "All activity" under Notifications) */
+:is([data-radix-menu-content], [data-radix-dropdown-menu-content], [data-radix-context-menu-content], [role="menu"])
+  :is(.text-muted-foreground, .text-subtle-foreground, [data-menu-section-label]) {
+  color: var(--muted-foreground) !important;
+}
+
+/* ---------------------------------------------------------------------------
+   Codex Notification Popups (Toasts):
+   - 16px rounded corners (matching Codex alert/toast geometry)
+   - #3b3c4f elevated background and #404153 border sampled from Codex dark mode
+   - Refined title, description, close button, and pill action buttons
+   - Semantic icon colors matching Catppuccin / Codex palettes
+   --------------------------------------------------------------------------- */
+[data-sonner-toaster] {
+  --border-radius: 16px !important;
+}
+
+.dark [data-sonner-toaster] {
+  --normal-bg: #3b3c4f !important;
+  --normal-border: #404153 !important;
+  --normal-text: var(--ink) !important;
+}
+
+:root:not(.dark) [data-sonner-toaster] {
+  --normal-bg: #ffffff !important;
+  --normal-text: var(--ink) !important;
+}
+
+:is([data-sonner-toast], [data-sonner-toast][data-styled="true"]) {
+  border-radius: 16px !important;
+  background-color: var(--popover) !important;
+  border: 1px solid var(--popover-border) !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.45), 0 8px 10px -6px rgba(0, 0, 0, 0.35) !important;
+  color: var(--ink) !important;
+  padding: 14px 16px !important;
+}
+
+:root:not(.dark) :is([data-sonner-toast], [data-sonner-toast][data-styled="true"]) {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Toast title and description typography */
+[data-sonner-toast] [data-title] {
+  font-size: 0.875rem !important; /* 14px */
+  font-weight: 500 !important;
+  line-height: 1.4 !important;
+  color: var(--ink) !important;
+}
+
+[data-sonner-toast] [data-description] {
+  font-size: 0.8125rem !important; /* 13px */
+  line-height: 1.4 !important;
+  color: var(--muted-foreground) !important;
+}
+
+[data-sonner-toast] [data-description] button {
+  color: var(--muted-foreground) !important;
+}
+
+[data-sonner-toast] [data-description] button:hover {
+  color: var(--ink) !important;
+}
+
+/* Close button on notifications */
+[data-sonner-toast] [data-close-button] {
+  border-radius: 9999px !important;
+  background-color: transparent !important;
+  border: 1px solid transparent !important;
+  color: var(--subtle-foreground) !important;
+  transition: background-color 0.15s ease, color 0.15s ease !important;
+}
+
+[data-sonner-toast] [data-close-button]:hover {
+  background-color: color-mix(in srgb, var(--ink) 12%, transparent) !important;
+  color: var(--ink) !important;
+  border-color: transparent !important;
+}
+
+/* Action and cancel buttons inside notifications (e.g. Undo) */
+[data-sonner-toast] [data-button] {
+  border-radius: 9999px !important;
+  font-size: 0.8125rem !important; /* 13px */
+  font-weight: 500 !important;
+  transition: opacity 0.15s ease, background-color 0.15s ease !important;
+}
+
+/* Undo / cancel button */
+[data-sonner-toast] [data-cancel] {
+  background-color: transparent !important;
+  color: var(--ink) !important;
+  text-decoration: underline !important;
+  text-underline-offset: 3px !important;
+  padding: 2px 6px !important;
+}
+
+[data-sonner-toast] [data-cancel]:hover {
+  background-color: color-mix(in srgb, var(--ink) 10%, transparent) !important;
+}
+
+/* Standard action button */
+[data-sonner-toast] [data-action] {
+  background-color: var(--primary) !important;
+  color: var(--primary-foreground) !important;
+  padding: 4px 12px !important;
+}
+
+[data-sonner-toast] [data-action]:hover {
+  opacity: 0.9 !important;
+}
+
+/* Semantic icons in toasts */
+[data-sonner-toast][data-type="success"] [data-icon],
+[data-sonner-toast][data-type="success"] [data-icon] svg {
+  color: var(--success) !important;
+}
+
+[data-sonner-toast][data-type="error"] [data-icon],
+[data-sonner-toast][data-type="error"] [data-icon] svg {
+  color: var(--destructive) !important;
+}
+
+[data-sonner-toast][data-type="warning"] [data-icon],
+[data-sonner-toast][data-type="warning"] [data-icon] svg {
+  color: var(--warning) !important;
+}
+
+[data-sonner-toast][data-type="info"] [data-icon],
+[data-sonner-toast][data-type="info"] [data-icon] svg {
+  color: var(--timeline-accent) !important;
 }
 

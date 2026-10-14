@@ -13,6 +13,14 @@ A custom theme for [bb](https://getbb.app) bringing visual and layout parity wit
 - **Color Parity**:
   - `#3b3c4f` composer background and `#404153` border sampled directly from Codex dark mode.
   - Preserves native theme contrast, focus states, and disabled button behavior.
+- **Codex Context Menus & Dropdowns**:
+  - `16px` rounded container corners (matching Codex's `--menu-radius: var(--radius-2xl)`).
+  - Concentric `10px` rounded menu items with tuned padding, hover states, and preserved destructive actions.
+  - `#3b3c4f` elevated surface background and `#404153` border.
+- **Codex Notification Popups**:
+  - `16px` rounded toast containers matching Codex alert geometry.
+  - `#3b3c4f` elevated background, `#404153` border, and rich elevation shadow.
+  - Semantic icon accents, clean typography, and pill action buttons.
 - **Decluttered View**: Removes the top-right collapse chevron and bottom composer footer for a minimal, focused prompt area.
 - **Catppuccin Palette**: Retains full Catppuccin syntax highlighting and terminal ANSI colors.
 
