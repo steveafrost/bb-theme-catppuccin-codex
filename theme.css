@@ -348,26 +348,28 @@ span.inline-flex.min-w-0.max-w-full.items-center.opacity-40 { opacity: 1; }
    --------------------------------------------------------------------------- */
 [data-sonner-toaster] {
   --border-radius: 16px !important;
-  --offset-bottom: 24px !important;
-  --offset-right: 24px !important;
-  --offset-left: 24px !important;
-  --offset-top: 24px !important;
+  --offset-bottom: 32px !important;
+  --offset-right: 32px !important;
+  --offset-left: 32px !important;
+  --offset-top: 32px !important;
+  bottom: 32px !important;
+  right: 32px !important;
 }
 
 [data-sonner-toaster][data-y-position="bottom"] {
-  bottom: 24px !important;
+  bottom: 32px !important;
 }
 
 [data-sonner-toaster][data-x-position="right"] {
-  right: 24px !important;
+  right: 32px !important;
 }
 
 [data-sonner-toaster][data-x-position="left"] {
-  left: 24px !important;
+  left: 32px !important;
 }
 
 [data-sonner-toaster][data-y-position="top"] {
-  top: 24px !important;
+  top: 32px !important;
 }
 
 .dark [data-sonner-toaster] {
@@ -382,27 +384,51 @@ span.inline-flex.min-w-0.max-w-full.items-center.opacity-40 { opacity: 1; }
   --normal-text: var(--ink) !important;
 }
 
-/* Outer Sonner toast element: transparent and borderless so inner card is sole border */
-:is([data-sonner-toast], [data-sonner-toast][data-styled="true"]) {
+/* Custom BB toasts (.bb-app-toast): outer <li> is purely a transparent wrapper */
+[data-sonner-toast].bb-app-toast,
+[data-sonner-toast]:not([data-styled="true"]) {
   border: none !important;
   background: transparent !important;
   box-shadow: none !important;
   padding: 0 !important;
 }
 
-/* The actual toast card (both BB custom .bb-app-toast div and fallback styled toasts) */
-:is([data-sonner-toast] > div, [data-sonner-toast][data-styled="true"]) {
+/* The actual toast card (inner div of .bb-app-toast): single clean border, 16px radius */
+[data-sonner-toast].bb-app-toast > div,
+[data-sonner-toast]:not([data-styled="true"]) > div {
   border-radius: 16px !important;
   background-color: var(--popover) !important;
   border: 1px solid var(--popover-border) !important;
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.45), 0 8px 10px -6px rgba(0, 0, 0, 0.35) !important;
   color: var(--ink) !important;
+  overflow: hidden !important;
 }
 
-:root:not(.dark) :is([data-sonner-toast] > div, [data-sonner-toast][data-styled="true"]) {
+:root:not(.dark) [data-sonner-toast].bb-app-toast > div,
+:root:not(.dark) [data-sonner-toast]:not([data-styled="true"]) > div {
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.08) !important;
 }
 
+/* Fallback for standard Sonner styled toasts where the <li> itself is the card */
+[data-sonner-toast][data-styled="true"] {
+  border-radius: 16px !important;
+  background-color: var(--popover) !important;
+  border: 1px solid var(--popover-border) !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.45), 0 8px 10px -6px rgba(0, 0, 0, 0.35) !important;
+  color: var(--ink) !important;
+  padding: 14px 16px !important;
+}
+
+:root:not(.dark) [data-sonner-toast][data-styled="true"] {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Stacked/background toasts also get 16px radius */
+:where([data-sonner-toast].bb-app-toast[data-expanded="false"][data-front="false"]),
+[data-sonner-toast][data-front="false"],
+[data-sonner-toast][data-front="false"] > div {
+  border-radius: 16px !important;
+}
 /* Toast title and description typography */
 [data-sonner-toast] :is([data-title], [data-testid="app-toast-title"]) {
   font-size: 0.875rem !important; /* 14px */
