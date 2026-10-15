@@ -28,11 +28,11 @@ A custom theme for [bb](https://getbb.app) bringing visual and layout parity wit
 
 ## Installation
 
-Clone into your custom themes directory and activate it:
+Clone into your custom themes directory and activate it. The folder name is the displayed theme name:
 
 ```bash
-git clone https://github.com/steveafrost/bb-theme-codex.git ~/.bb/theme/codex
-bb theme set codex
+git clone https://github.com/steveafrost/bb-theme-codex.git ~/.bb/theme/Codex
+bb theme set Codex
 ```
 
 The theme takes effect immediately in running windows without a restart.
@@ -40,8 +40,8 @@ The theme takes effect immediately in running windows without a restart.
 ## Updating
 
 ```bash
-git -C ~/.bb/theme/codex pull
-bb theme set codex
+git -C ~/.bb/theme/Codex pull
+bb theme set Codex
 ```
 
 ## Reset / Uninstall
