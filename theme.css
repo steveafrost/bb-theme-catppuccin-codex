@@ -194,10 +194,10 @@ span.inline-flex.min-w-0.max-w-full.items-center.opacity-40 { opacity: 1; }
 [data-follow-up-composer-footer] { display: none !important; }
 
 /* ---------------------------------------------------------------------------
-   Use the send indicator arrow from Codex / ChatGPT
+   Use the send indicator arrow from Codex / ChatGPT ONLY for default send action.
+   Does NOT mask or hide other action icons (like MessageSquarePlus for handoff).
    --------------------------------------------------------------------------- */
-:is([data-promptbox-submit-action], [data-follow-up-composer]) :is(svg[data-icon="CornerDownLeft"], [data-icon="CornerDownLeft"]),
-[data-promptbox-submit-action] svg:not(.animate-spin) {
+:is([data-promptbox-submit-action], [data-follow-up-composer]) :is([data-icon="CornerDownLeft"], svg[data-icon="CornerDownLeft"]) :is(svg, &) {
   background-color: currentColor;
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22black%22%3E%3Cpath%20d%3D%22M9.31697%203.08317C9.71331%202.75987%2010.2857%202.76021%2010.6822%203.08317L10.7652%203.15739L16.3033%208.69645C16.563%208.95614%2016.563%209.37718%2016.3033%209.63688C16.0436%209.89642%2015.6225%209.89653%2015.3629%209.63688L10.6656%204.93864V16.6662C10.6656%2017.0333%2010.3676%2017.331%2010.0006%2017.3312C9.6333%2017.3312%209.33553%2017.0334%209.33553%2016.6662V4.93669L4.63728%209.63688C4.37759%209.89658%203.95558%209.89658%203.69588%209.63688C3.43668%209.37726%203.43664%208.95604%203.69588%208.69645L9.23494%203.15739L9.31697%203.08317Z%22/%3E%3C/svg%3E");
   mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22black%22%3E%3Cpath%20d%3D%22M9.31697%203.08317C9.71331%202.75987%2010.2857%202.76021%2010.6822%203.08317L10.7652%203.15739L16.3033%208.69645C16.563%208.95614%2016.563%209.37718%2016.3033%209.63688C16.0436%209.89642%2015.6225%209.89653%2015.3629%209.63688L10.6656%204.93864V16.6662C10.6656%2017.0333%2010.3676%2017.331%2010.0006%2017.3312C9.6333%2017.3312%209.33553%2017.0334%209.33553%2016.6662V4.93669L4.63728%209.63688C4.37759%209.89658%203.95558%209.89658%203.69588%209.63688C3.43668%209.37726%203.43664%208.95604%203.69588%208.69645L9.23494%203.15739L9.31697%203.08317Z%22/%3E%3C/svg%3E");
@@ -208,11 +208,23 @@ span.inline-flex.min-w-0.max-w-full.items-center.opacity-40 { opacity: 1; }
   -webkit-mask-size: contain;
   mask-size: contain;
 }
-:is([data-promptbox-submit-action], [data-follow-up-composer]) :is(svg[data-icon="CornerDownLeft"], [data-icon="CornerDownLeft"]) path,
-[data-promptbox-submit-action] svg:not(.animate-spin) path {
+
+:is([data-promptbox-submit-action], [data-follow-up-composer]) :is([data-icon="CornerDownLeft"], svg[data-icon="CornerDownLeft"]) :is(path, polyline) {
   display: none !important;
 }
 
+/* Non-send submit actions (e.g. MessageSquarePlus for handoff to new thread) remain unmasked */
+[data-promptbox-submit-action] :is([data-icon="MessageSquarePlus"], [data-icon="MessageSquarePlus"] svg) {
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+  background-color: transparent !important;
+}
+
+[data-promptbox-submit-action] [data-icon="MessageSquarePlus"] :is(path, line) {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
 /* ---------------------------------------------------------------------------
    Codex composer: round corners, circular send button, compact height, colors
    --------------------------------------------------------------------------- */
@@ -257,13 +269,38 @@ span.inline-flex.min-w-0.max-w-full.items-center.opacity-40 { opacity: 1; }
   overflow: hidden !important;
 }
 
+/* Circular send and handoff submit button */
 [data-promptbox-submit-action] {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   border-radius: 9999px !important;
   width: 2rem !important;
   height: 2rem !important;
   min-width: 2rem !important;
+  max-width: 2rem !important;
   padding: 0 !important;
   aspect-ratio: 1 / 1 !important;
+  overflow: hidden !important;
+  flex-shrink: 0 !important;
+}
+
+/* Hide submit action text label (e.g. "New thread") so handoff button stays a clean circular icon button without clipping */
+[data-promptbox-submit-action] [data-promptbox-submit-label] {
+  display: none !important;
+}
+
+/* Ensure submit action icons (send arrow, MessageSquarePlus, spinner) are cleanly centered at 1rem (16px) */
+[data-promptbox-submit-action] :is([data-icon-root], svg:not(.animate-spin)) {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 1rem !important;
+  height: 1rem !important;
+  max-width: 1rem !important;
+  max-height: 1rem !important;
+  flex-shrink: 0 !important;
+  margin: 0 !important;
 }
 
 /* ---------------------------------------------------------------------------
