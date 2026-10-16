@@ -238,8 +238,10 @@ span.inline-flex.min-w-0.max-w-full.items-center.opacity-40 { opacity: 1; }
 
 [data-promptbox] [data-promptbox-editor-scroll] {
   min-height: 42px !important;
-  padding-top: 14px !important;
-  padding-bottom: 6px !important;
+  /* Symmetric so the text line centers vertically in the compact pill; */
+  /* 10 + one text line (28) + 10 = 48px row, same as the action row. */
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
   padding-left: 18px !important;
   padding-right: 18px !important;
 }
@@ -250,8 +252,10 @@ span.inline-flex.min-w-0.max-w-full.items-center.opacity-40 { opacity: 1; }
 }
 
 [data-promptbox] [data-promptbox-action-row] {
-  padding-top: 4px !important;
-  padding-bottom: 10px !important;
+  /* Symmetric so the mic/send/stop buttons center on the same line as text; */
+  /* 8 + 32px button + 8 = 48px row, same as the editor row. */
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
   padding-left: 16px !important;
   padding-right: 14px !important;
 }
