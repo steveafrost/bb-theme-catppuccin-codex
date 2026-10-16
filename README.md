@@ -13,7 +13,7 @@ A custom theme for [bb](https://getbb.app) bringing visual and layout parity wit
   - Compact ~72px box height with proportional breathing room.
   - Circular `32px` send button (`rounded-full`).
 - **Color Parity**:
-  - `#3b3c4f` composer background and `#404153` border sampled directly from Codex dark mode.
+  - Composer uses the theme's `--popover` / `--popover-border` tokens: `#3b3c4f` / `#404153` (sampled from Codex) in dark mode, light surface in light mode.
   - Preserves native theme contrast, focus states, and disabled button behavior.
 - **Codex Context Menus & Dropdowns**:
   - `16px` rounded container corners (matching Codex's `--menu-radius: var(--radius-2xl)`).

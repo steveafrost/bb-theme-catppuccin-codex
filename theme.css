@@ -232,8 +232,8 @@ span.inline-flex.min-w-0.max-w-full.items-center.opacity-40 { opacity: 1; }
    --------------------------------------------------------------------------- */
 :is([data-promptbox], [data-follow-up-composer] [data-promptbox]) {
   border-radius: 26px !important;
-  background-color: #3b3c4f !important;
-  border-color: #404153 !important;
+  background-color: var(--popover) !important;
+  border-color: var(--popover-border) !important;
 }
 
 [data-promptbox] [data-promptbox-editor-scroll] {
