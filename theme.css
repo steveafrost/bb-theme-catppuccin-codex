@@ -633,3 +633,15 @@ span.inline-flex.min-w-0.max-w-full.items-center.opacity-40 { opacity: 1; }
 [data-sonner-toast] svg[data-icon="Info"] {
   color: var(--timeline-accent) !important;
 }
+
+/* ---------------------------------------------------------------------------
+   Keep markdown tables inside the message column. bb widens the table wrapper
+   with an inline style (up to 1100px, centered on the column); wide tables now
+   scroll horizontally inside the column instead. Click-to-expand comes from
+   the bb-plugin-table-expand plugin.
+   --------------------------------------------------------------------------- */
+[data-markdown-preview] div.my-2.flex.justify-center:has(> div.overflow-x-auto > table) {
+  width: 100% !important;
+  margin-inline: 0 !important;
+  justify-content: flex-start;
+}
